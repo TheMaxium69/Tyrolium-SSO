@@ -1,0 +1,13 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /Tyrolium-SSO/
+
+# Bloquer l'accès direct aux dossiers internes
+RewriteRule ^core/ - [F,L]
+RewriteRule ^cron/ - [F,L]
+
+# Router tout vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]

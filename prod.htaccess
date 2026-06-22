@@ -1,0 +1,21 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+
+# Bloquer l'accès direct aux dossiers internes
+RewriteRule ^core/ - [F,L]
+RewriteRule ^cron/ - [F,L]
+
+# Forcer HTTPS (OVH reverse proxy)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=307]
+
+# Router tout vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+ErrorDocument 404 https://tyrolium.fr/404
+ErrorDocument 403 https://tyrolium.fr/403
