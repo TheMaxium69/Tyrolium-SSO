@@ -14,6 +14,8 @@ class Actions
         'https://tyroserv.fr',
         'https://dashboard.useritium.fr',
         'https://app.gamenium.fr',
+        'https://cloud101.tyrolium.fr',
+        'https://cloud102.tyrolium.fr',
         'https://sso.tyrolium.fr',
     ];
 
@@ -29,6 +31,8 @@ class Actions
         'tyroserv.fr',
         'dashboard.useritium.fr',
         'app.gamenium.fr',
+        'cloud101.tyrolium.fr',
+        'cloud102.tyrolium.fr',
     ];
 
     private const ALLOWED_KEYS  = ['theme', 'lang', 'token'];
