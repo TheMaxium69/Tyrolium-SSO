@@ -75,6 +75,33 @@ class Actions
     }
 
     // -------------------------------------------------------------------------
+    // GET /reset?return=URL
+    // Invalide l'UUID courant, en génère un nouveau, redirige avec le nouveau
+    // -------------------------------------------------------------------------
+
+    public static function reset(): void
+    {
+        $return  = $_GET['return'] ?? '';
+        $session = new Model\SyncSession();
+        $oldUuid = $_COOKIE[self::COOKIE_NAME] ?? null;
+
+        if ($oldUuid && self::isValidUuid($oldUuid)) {
+            $session->deleteByUuid($oldUuid);
+        }
+
+        $newUuid = $session->create();
+        self::setBrowserCookie($newUuid);
+
+        if ($return && self::isAllowedReturnUrl($return)) {
+            $sep = strpos($return, '?') !== false ? '&' : '?';
+            header('Location: ' . $return . $sep . '_tyro_uuid=' . urlencode($newUuid), true, 302);
+        } else {
+            header('Location: https://tyrolium.fr', true, 302);
+        }
+        exit;
+    }
+
+    // -------------------------------------------------------------------------
     // GET  /state?uuid=XXX
     // POST /state   body: uuid=XXX&key=theme&value=dark
     // -------------------------------------------------------------------------

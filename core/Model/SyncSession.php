@@ -43,6 +43,17 @@ class SyncSession extends Model
     }
 
     /**
+     * Supprime une session par UUID.
+     */
+    public function deleteByUuid(string $uuid): void
+    {
+        $stmt = $this->pdo->prepare(
+            'DELETE FROM ' . self::TABLE . ' WHERE uuid = :uuid'
+        );
+        $stmt->execute(['uuid' => $uuid]);
+    }
+
+    /**
      * Met à jour une clé d'état (theme, lang, token).
      */
     public function setState(string $uuid, string $key, ?string $value): void

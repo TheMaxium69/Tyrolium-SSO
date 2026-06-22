@@ -2,7 +2,7 @@
 
 class App
 {
-    private const ACTIONS = ['hub', 'state'];
+    private const ACTIONS = ['hub', 'state', 'reset'];
 
     public static function process(): void
     {
